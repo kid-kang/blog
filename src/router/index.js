@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/Home.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,14 +10,46 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/about',
-      name: 'about',
+      path: '/share',
+      name: 'share',
       // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
+      // this generates a separate chunk (Share.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    }
+      component: () => import('../views/Share.vue')
+    },
+    {
+      path: '/friendLink',
+      name: 'friendLink',
+      // route level code-splitting
+      // this generates a separate chunk (FriendLink.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/FriendLink.vue')
+    },
+    {
+      path: '/feedback',
+      name: 'feedback',
+      // route level code-splitting
+      // this generates a separate chunk (Feedback.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Feedback.vue')
+    },
+    {
+      path: '/dynamic',
+      name: 'dynamic',
+      // route level code-splitting
+      // this generates a separate chunk (Dynamic.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Dynamic.vue')
+    },
+    {
+      path: '/discuss',
+      name: 'discuss',
+      // route level code-splitting
+      // this generates a separate chunk (Discuss.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Discuss.vue')
+    },
   ]
-})
+});
 
-export default router
+export default router;
