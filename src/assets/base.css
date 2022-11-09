@@ -30,6 +30,20 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
   min-height: 100vh;
+  min-width: 1080px;
+  background: url("../../public/bg-left.png") no-repeat 0 50px fixed,
+  url("../../public/bg-right.png") no-repeat right 50px fixed;
+  background-color: #f2f2f2;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+*::-webkit-scrollbar-thumb {
+  height: 40px;
+  background-color: #ccc;
+  border-radius: 16px;
 }
 ol, ul {
 	list-style: none;

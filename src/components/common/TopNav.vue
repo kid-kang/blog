@@ -16,4 +16,36 @@ import { RouterLink } from 'vue-router';
 </script>
 
 <style scoped>
+.nav-wrap {
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  width: 100%;
+  min-width: 1080px;
+  z-index: 9999999;
+  top: 0;
+  background-color: #fff;
+}
+.nav-wrap nav {
+  display: flex;
+  justify-content: space-around;
+  width: 680px;
+  height: 40px;
+}
+.nav-wrap nav a {
+  display: inline-block;
+  height: 38px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bolder;
+  color: rgb(134, 130, 130);
+}
+.nav-wrap nav a:hover {
+  color: tomato;
+}
+.nav-wrap nav a.router-link-active {
+  color: tomato;
+  border-bottom: solid 2px tomato;
+}
 </style>
