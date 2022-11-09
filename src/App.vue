@@ -24,9 +24,12 @@ import TopNav from './components/common/TopNav.vue';
   margin: 45px auto;
 }
 .app-wrap .info-section {
+  position: sticky;
+  top: 45px;
+  left: 0;
+  flex: 1;
   height: 300px;
   margin-right: 12px;
-  flex: 1;
   background-color: skyblue;
   box-shadow: 0 0 4px #ddd;
 }
