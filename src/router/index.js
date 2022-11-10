@@ -49,6 +49,14 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/Discuss.vue')
     },
+    {
+      path: '/updateUser',
+      name: 'updateUser',
+      // route level code-splitting
+      // this generates a separate chunk (Discuss.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/UpdateUser.vue')
+    },
   ]
 });
 

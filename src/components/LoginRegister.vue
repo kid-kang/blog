@@ -1,8 +1,8 @@
 <template>
-  <div class="my-info">
+  <div class="my-info" :class="{'add-border-radius': !store.userInfo.name}">
     <div class="unlogin" v-if="!store.userInfo.name" @click="openDialog">登陆/注册</div>
     <div class="logined" v-else>
-      <img :src="'http://116.62.33.47:3300'+store.userInfo.avatar" alt="头像">
+      <img :src="store.baseURL + store.userInfo.avatar" alt="头像" />
       <p>{{ store.userInfo.name }}</p>
     </div>
   </div>
@@ -54,8 +54,7 @@
 </template>
 
 <script setup>
-import {ElMessage} from 'element-plus';
-import axios from '@/assets/axios';
+import {useAxios} from '@/hooks/useAxios';
 import Dialog from './common/Dialog.vue';
 import {useLoginRegisterRules} from '../hooks/useLoginRegisterRules';
 import {ref, reactive, provide} from 'vue';
@@ -77,7 +76,7 @@ const formData = reactive({
     password: '',
   },
 });
-const rules = useLoginRegisterRules(formData);
+const rules = useLoginRegisterRules(formData, 'regForm');
 const store = useBlogStore();
 provide('dialogVisible', dialogVisible);
 
@@ -87,44 +86,44 @@ function openDialog() {
 
 // 注册按钮
 function submitRegister() {
-  refRegForm.value.validate(async bool => {
+  refRegForm.value.validate(bool => {
     if (bool) {
       //表单数据校验成功
-      const res = await axios('POST', '/register', {
-        name: formData.regForm.name,
-        user: formData.regForm.user,
-        password: formData.regForm.password,
-      });
-
-      if (res?.code && res?.code === 200) {
-        ElMessage.success(res.message || '注册成功');
-        refRegForm.value.resetFields(); //清空表单数据
-        activeName.value = 'login';
-      } else {
-        ElMessage.error(res.message || '注册失败');
-      }
+      useAxios(
+        () => {
+          refRegForm.value.resetFields(); //清空表单数据
+          activeName.value = 'login';
+        },
+        'POST',
+        '/register',
+        {
+          name: formData.regForm.name,
+          user: formData.regForm.user,
+          password: formData.regForm.password,
+        }
+      );
     }
   });
 }
 
 // 登录按钮
 function submitLogin() {
-  refLogForm.value.validate(async bool => {
+  refLogForm.value.validate(bool => {
     if (bool) {
       //表单数据校验成功
-      const res = await axios('POST', '/login', {
-        user: formData.logForm.user,
-        password: formData.logForm.password,
-      });
-
-      if (res?.code && res?.code === 200) {
-        ElMessage.success(res.message || '登录成功');
-        refLogForm.value.resetFields(); //清空表单数据
-        dialogVisible.value = false; //关闭dialog
-        store.updateUserInfo(res.data); //存储用户信息
-      } else {
-        ElMessage.error(res.message || '登录失败');
-      }
+      useAxios(
+        (res) => {
+          refLogForm.value.resetFields(); //清空表单数据
+          dialogVisible.value = false; //关闭dialog
+          store.updateUserInfo(res.data); //存储用户信息
+        },
+        'POST',
+        '/login',
+        {
+          user: formData.logForm.user,
+          password: formData.logForm.password,
+        }
+      );
     }
   });
 }
@@ -137,7 +136,7 @@ function submitLogin() {
   padding: 16px;
   background-color: #fff;
   // background-color: #bfe2e6;
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0;
 
   .logined {
     display: flex;
@@ -158,6 +157,10 @@ function submitLogin() {
       font-weight: 600;
     }
   }
+}
+
+.my-info.add-border-radius {
+  border-radius: 10px;
 }
 
 .my-info .unlogin {

@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { inject } from 'vue';
+import {inject} from 'vue';
 let dialogVisible = inject('dialogVisible');
 
 function closeDialog() {
@@ -21,5 +21,6 @@ function closeDialog() {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.2);
+  z-index: 99999999;
 }
 </style>
