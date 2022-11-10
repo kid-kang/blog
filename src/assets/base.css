@@ -23,6 +23,7 @@ time, mark, audio, video {
   font-family: Quicksand;
   font-weight:normal;
 	vertical-align: baseline;
+  user-select: none;
 }
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {

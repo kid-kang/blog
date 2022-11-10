@@ -1,11 +1,9 @@
 import axios from "axios";
-import {ElMessage} from 'element-plus';
-import {useBlogStore} from '../store';
-
-const store = useBlogStore()
+import { ElMessage } from 'element-plus';
 
 const $axios = axios.create({
-  baseURL: store.baseURL,
+  baseURL: 'http://127.0.0.1:3300',
+  // baseURL: 'http://116.62.33.47:3300',
   withCredentials: true,  //携带cookie数据随着请求走;
   timeout: 3000
 });
@@ -24,8 +22,8 @@ $axios.interceptors.response.use(
 
 
 
-export async function useAxios (cb, method, url, data) {
-  let res = {}
+export async function useAxios(cb, method, url, data) {
+  let res = {};
   if (method.toUpperCase() === 'POST') {
     res = await $axios({ method, url, data: data || {} });
   } else {
@@ -34,7 +32,7 @@ export async function useAxios (cb, method, url, data) {
 
   if (res?.code && res?.code === 200) {
     ElMessage.success(res.message);
-    cb(res)
+    cb(res);
   } else {
     ElMessage.error(res.message);
   }
