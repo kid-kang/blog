@@ -14,8 +14,16 @@ $axios.interceptors.request.use(
 
 //响应拦截器
 $axios.interceptors.response.use(
-  res => res,
+  res => res?.data || res,
   err => err
 );
 
-export default $axios;
+
+
+export default function (method, url, data) {
+  if (method.toUpperCase() === 'POST') {
+    return $axios({ method, url, data: data || {} });
+  } else {
+    return $axios({ method, url, params: data || {} });
+  }
+};

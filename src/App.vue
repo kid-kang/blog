@@ -1,43 +1,50 @@
 <template>
   <TopNav />
   <div class="app-wrap">
-    <div class="info-section">
-
+    <div class="info-section__box" v-if="isFixed"></div>
+    <div class="info-section__box" :class="{fixed: isFixed}">
+      <InfoSection />
     </div>
-    <div class="router-view">
+    <div class="router-view__box">
       <RouterView />
     </div>
   </div>
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router';
-import TopNav from './components/common/TopNav.vue';
+import {RouterView} from 'vue-router';
+import TopNav from './components/TopNav.vue';
+import InfoSection from './components/InfoSection.vue';
+import {useFixed} from './hooks/useFixed';
+
+let isFixed = useFixed();
 </script>
 
 <style scoped>
 .app-wrap {
-  box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   width: 1080px;
   margin: 45px auto;
 }
-.app-wrap .info-section {
-  position: sticky;
-  top: 45px;
-  left: 0;
-  flex: 1;
-  height: 300px;
+.app-wrap .info-section__box {
+  width: 268px;
   margin-right: 12px;
-  background-color: skyblue;
+  border-radius: 10px;
   box-shadow: 0 0 4px #ddd;
 }
-.app-wrap .router-view {
-  box-sizing: border-box;
+
+.app-wrap .info-section__box.fixed {
+  position: fixed;
+  top: 45px;
+  
+}
+.app-wrap .router-view__box {
   padding: 25px 20px;
   min-height: 100vh;
   width: 800px;
+  border-radius: 10px;
   box-shadow: 0 0 4px #ddd;
+  background-color: #fff;
 }
 </style>

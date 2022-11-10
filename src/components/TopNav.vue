@@ -22,7 +22,7 @@ import { RouterLink } from 'vue-router';
   justify-content: center;
   width: 100%;
   min-width: 1080px;
-  z-index: 9999999;
+  z-index: 2000;
   top: 0;
   background-color: #fff;
 }
