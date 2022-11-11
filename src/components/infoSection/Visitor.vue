@@ -22,13 +22,13 @@ const store = useBlogStore();
 .visitor-wrap {
   padding: 16px;
   background-color: #fff;
-  // background-color: #bfe2e6;
   border-radius: 10px;
   margin-top: 10px;
 
   h3 {
     height: 25px;
     font-weight: bold;
+    font-size: 14px;
   }
 
   ul {
