@@ -10,7 +10,7 @@
       <el-input type="password" v-model="updatePwdForm.changePwd.reNewPassword" />
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="onSubmit">立即修改</el-button>
+      <el-button type="primary" @click="onSubmit" round>修改</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -57,4 +57,5 @@ function onSubmit() {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+</style>

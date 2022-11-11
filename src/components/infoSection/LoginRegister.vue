@@ -55,10 +55,10 @@
 
 <script setup>
 import {useAxios} from '@/hooks/useAxios';
-import Dialog from './common/Dialog.vue';
-import {useLoginRegisterRules} from '../hooks/useLoginRegisterRules';
+import Dialog from '@/components/common/Dialog.vue';
+import {useLoginRegisterRules} from '@/hooks/useLoginRegisterRules';
 import {ref, reactive, provide} from 'vue';
-import {useBlogStore} from '../store';
+import {useBlogStore} from '@/store';
 
 let dialogVisible = ref(false);
 let activeName = ref('login');
@@ -112,10 +112,11 @@ function submitLogin() {
     if (bool) {
       //表单数据校验成功
       useAxios(
-        (res) => {
+        res => {
           refLogForm.value.resetFields(); //清空表单数据
           dialogVisible.value = false; //关闭dialog
           store.updateUserInfo(res.data); //存储用户信息
+          store.getVisitor(); //更新访客
         },
         'POST',
         '/login',
@@ -155,6 +156,7 @@ function submitLogin() {
     p {
       font-size: 14px;
       font-weight: 600;
+      // color: #6bc30d;
     }
   }
 }

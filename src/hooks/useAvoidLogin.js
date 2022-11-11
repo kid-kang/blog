@@ -6,8 +6,9 @@ export function useAvoidLogin() {
   const store = useBlogStore();
 
   onMounted(async () => {
-    useAxios((res)=> {
+    useAxios((res) => {
       store.updateUserInfo(res.data); //免登录
-    },'post', '/avoidLogin')
+      store.getVisitor(); // 更新访客
+    }, 'post', '/avoidLogin');
   });
 }

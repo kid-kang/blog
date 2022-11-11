@@ -17,9 +17,13 @@ import TopNav from './components/TopNav.vue';
 import InfoSection from './components/InfoSection.vue';
 import {useFixed} from './hooks/useFixed';
 import {useAvoidLogin} from './hooks/useAvoidLogin';
+import {useBlogStore} from '@/store';
+
+const store = useBlogStore();
+store.getVisitor();
 
 let isFixed = useFixed();
-useAvoidLogin()
+useAvoidLogin();
 </script>
 
 <style scoped>
@@ -39,7 +43,6 @@ useAvoidLogin()
 .app-wrap .info-section__box.fixed {
   position: fixed;
   top: 45px;
-  
 }
 .app-wrap .router-view__box {
   min-height: 100vh;

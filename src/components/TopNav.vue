@@ -5,14 +5,16 @@
       <RouterLink to="/dynamic">动态</RouterLink>
       <RouterLink to="/share">分享</RouterLink>
       <RouterLink to="/discuss">话题讨论</RouterLink>
-      <RouterLink to="/friendLink">友链管理</RouterLink>
-      <RouterLink to="/feedback">反馈</RouterLink>
+      <RouterLink to="/friendLink" v-if="store.userInfo.admin">友链管理</RouterLink>
+      <RouterLink to="/feedback" v-if="store.userInfo.admin">反馈</RouterLink>
     </nav>
   </div>
 </template>
 
 <script setup>
-import { RouterLink } from 'vue-router';
+import {RouterLink} from 'vue-router';
+import {useBlogStore} from '../store';
+const store = useBlogStore();
 </script>
 
 <style scoped>

@@ -31,9 +31,9 @@ export async function useAxios(cb, method, url, data) {
   }
 
   if (res?.code && res?.code === 200) {
-    ElMessage.success(res.message);
+    if(res.message) ElMessage.success(res.message);
     cb(res);
   } else {
-    ElMessage.error(res.message);
+    if(res.message) ElMessage.error(res.message);
   }
 };

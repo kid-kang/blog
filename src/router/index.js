@@ -60,4 +60,8 @@ const router = createRouter({
   ]
 });
 
+router.afterEach(() => {
+  document.documentElement.scrollTop = 0;
+});
+
 export default router;

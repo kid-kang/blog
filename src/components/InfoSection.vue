@@ -1,13 +1,15 @@
 <template>
   <LoginRegister />
   <div class="user-btn" v-if="store.userInfo.name">
-    <el-button type="primary" size="small" @click="updateInfo">修改信息</el-button>
-    <el-button type="danger" size="small" @click="logout">退出登录</el-button>
+    <el-button type="primary" round size="small" @click="updateInfo">修改信息</el-button>
+    <el-button type="danger" round size="small" @click="logout">退出登录</el-button>
   </div>
+  <Visitor />
 </template>
 
 <script setup>
-import LoginRegister from './LoginRegister.vue';
+import LoginRegister from './infoSection/LoginRegister.vue';
+import Visitor from './infoSection/Visitor.vue';
 import {useAxios} from '@/hooks/useAxios';
 import {useBlogStore} from '../store';
 import {useRouter} from 'vue-router';

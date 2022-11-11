@@ -41,6 +41,7 @@ function handleAvatarSuccess(res, file) {
     imageUrl.value = URL.createObjectURL(file.raw); //设置缩略图的路径
     store.updateUserInfo(res.data);
     ElMessage.success(res.message);
+    store.getVisitor()
   } else return ElMessage.error(res.message); //上传失败
 }
 </script>

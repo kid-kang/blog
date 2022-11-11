@@ -20,7 +20,7 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-  font-family: Quicksand;
+  font-family: Quicksand, Microsoft YaHei, sans-serif;
   font-weight:normal;
 	vertical-align: baseline;
   user-select: none;
