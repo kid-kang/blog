@@ -41,10 +41,10 @@ export const useBlogStore = defineStore('blog', {
             host.aiteUser = host.author; // @的人默认是作者
             host.likesNumber = host.likes.length;  //host点赞的数量
             // 是否是点赞的状态
-            host.like = this.userInfo.id && host.likes.includes(this.userInfo.id);
+            host.like = this.userInfo._id && host.likes.includes(this.userInfo._id);
             host.children = host.children.map(child => {
               child.likesNumber = child.likes.length;
-              child.like = this.userInfo.id && child.likes.includes(this.userInfo.id);
+              child.like = this.userInfo._id && child.likes.includes(this.userInfo._id);
               return child;
             });
           });
