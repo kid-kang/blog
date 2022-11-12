@@ -39,14 +39,14 @@ const store = useBlogStore();
       justify-content: space-between;
       width: 100%;
       padding: 6px 12px;
-      box-shadow: 0 0 4px #ccc;
+      box-shadow: 0 0 4px #aaa;
       border-radius: 10px;
       margin-top: 4px;
       img {
         width: 38px;
         height: 38px;
         margin-right: 10px;
-        border-radius: 6px;
+        border-radius: 50%;
       }
       .visit-time {
         display: flex;

@@ -40,7 +40,7 @@
           <el-input v-model="feedbackForm.email" />
         </el-form-item>
         <el-form-item label="你要发送的消息内容" prop="message">
-          <el-input v-model="feedbackForm.message" type="textarea" :autosize="{ minRows: 1, maxRows: 7 }"/>
+          <el-input v-model="feedbackForm.message" type="textarea" :autosize="{minRows: 1, maxRows: 7}" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm" round>发送</el-button>
@@ -50,7 +50,10 @@
     <li>
       <h2>关于我</h2>
       <p>
-        小王-前端工程师，精通 Ai、Fw、Fl、Br、Ae、Pr、Id、Ps 等软件的安装与卸载，精通 CSS、JavaScript、PHP、ASP、C、C++、C#、Java、Ruby、Perl、Lisp、Python、Objective-C、ActionScript、Pascal 等单词的拼写，熟悉 Windows、Linux、OS X、Android、iOS、WP8 等系统的开关机。并持续学习前端开发，立志成为优秀的前端开发工程师~做个终身学习者。
+        小王-前端工程师，精通 Ai、Fw、Fl、Br、Ae、Pr、Id、Ps 等软件的安装与卸载，精通
+        CSS、JavaScript、PHP、ASP、C、C++、C#、Java、Ruby、Perl、Lisp、Python、Objective-C、ActionScript、Pascal
+        等单词的拼写，熟悉 Windows、Linux、OS X、Android、iOS、WP8
+        等系统的开关机。并持续学习前端开发，立志成为优秀的前端开发工程师~做个终身学习者。
       </p>
       <p>帅气这个形容词，大概就是为我而创造的吧😏</p>
       <p>有必要强调一下！我还没有脱发！大概是写的代码还不够多...</p>
@@ -105,7 +108,6 @@ ul li {
   margin-bottom: 10px;
   padding: 25px 20px;
   background-color: #fff;
-  box-shadow: 0 0 4px #ddd;
   border-radius: 10px;
   h2 {
     margin-bottom: 15px;
@@ -143,7 +145,7 @@ ul li {
       width: 150px;
       height: 150px;
       margin-left: 20px;
-      box-shadow: 0 0 4px #ccc;
+      box-shadow: 0 0 4px #aaa;
       border-radius: 10px;
     }
   }

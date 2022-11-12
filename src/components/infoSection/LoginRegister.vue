@@ -136,7 +136,6 @@ function submitLogin() {
   height: 120px;
   padding: 16px;
   background-color: #fff;
-  // background-color: #bfe2e6;
   border-radius: 10px 10px 0 0;
 
   .logined {
@@ -150,11 +149,15 @@ function submitLogin() {
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      box-shadow: 0 0 4px #ccc;
+      box-shadow: 0 0 4px #aaa;
       cursor: pointer;
     }
     p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       font-size: 14px;
+      letter-spacing: 3px;
       font-weight: 600;
       // color: #6bc30d;
     }
