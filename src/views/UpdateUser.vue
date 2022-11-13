@@ -19,6 +19,8 @@
 import UpdateAvatar from '../components/update-user/UpdateAvatar.vue';
 import UpdateName from '../components/update-user/UpdateName.vue';
 import UpdatePassword from '../components/update-user/UpdatePassword.vue';
+import {useRedirect} from '@/hooks/useRedirect';
+useRedirect(false);
 </script>
 
 <style scoped lang="scss">

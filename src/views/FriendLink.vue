@@ -76,6 +76,8 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
+import {useAxios} from '@/hooks/useAxios';
+
 const linkInfo = ref([
   {
     name: 'apple',

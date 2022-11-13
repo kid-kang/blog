@@ -22,7 +22,7 @@
     </div>
   </section>
 
-  <ul>
+  <ul class="discuss">
     <li v-for="host in store.discussData" :key="host._id">
       <!-- host -->
       <div class="discuss-wrap">
@@ -37,6 +37,12 @@
             <span @click="toHostLike(host._id)">{{ host.like ? '💖' : '🤍' }}</span>
             <span>{{ host.likesNumber }}</span>
             <span @click="replayToShowInpt(host)">💬</span>
+            <span
+              v-if="store.userInfo.admin || store.userInfo._id === host.author._id"
+              @click="openDialogAndGetHostId(host._id)"
+            >
+              ❌
+            </span>
           </div>
         </div>
       </div>
@@ -60,29 +66,54 @@
         </div>
       </div>
       <!-- 回复框 -->
-      <div class="print-reply" :class="{show: host.isShowInput}">
-        <el-input size="small" v-model="host.replyText" :placeholder="`@${host.aiteUser.name}`" />
-        <el-button type="primary" @click="submitReply(host)" round>提交回复</el-button>
+      <div class="print-reply__wrap" v-show="host.isShowInput">
+        <el-input
+          type="textarea"
+          size="small"
+          maxlength="500"
+          class="print-reply__input"
+          v-model="host.replyText"
+          :placeholder="`@${host.aiteUser.name}`"
+          :autosize="{minRows: 2, maxRows: 4}"
+        />
+        <el-button type="primary" size="small" @click="submitReply(host)" round>提交回复</el-button>
       </div>
     </li>
   </ul>
+  <Dialog>
+    <el-card class="box-card">
+      <h3>删除后该话题下的所有回复将一并清空！您确定删除吗？</h3>
+      <p class="box-card__btn">
+        <el-button round @click="dialogVisible = false">取消</el-button>
+        <el-button type="primary" round @click="deleteDiscuss">确定</el-button>
+      </p>
+    </el-card>
+  </Dialog>
 </template>
 
 <script setup>
 import {arrEmoji} from '@/hooks/useEmoji';
 import {useBlogStore} from '@/store';
 import {ElMessage} from 'element-plus';
+import Dialog from '@/components/common/Dialog.vue';
 import {useAxios} from '@/hooks/useAxios';
-import {ref, onMounted} from 'vue';
+import {ref, onMounted, provide} from 'vue';
 import {isLogin} from '@/hooks/useIsLogin';
 
 const store = useBlogStore();
 let createDiscussText = ref('');
-let isShowEmoji = ref(false);
 
+let isShowEmoji = ref(false);
 function showEmoji() {
-  isShowEmoji.value = !isShowEmoji.value; //显示/关闭表情框
+  //显示/关闭表情框
+  isShowEmoji.value = !isShowEmoji.value;
 }
+onMounted(() => {
+  document.addEventListener('click', () => {
+    isShowEmoji.value = false;
+  });
+});
+
 function printEmoji(item) {
   createDiscussText.value += item; //点击输入表情到文本域
 }
@@ -111,8 +142,6 @@ function toHostLike(hostId) {
     //提交当前的评论hostId + 当前点击了按钮的用户id
     () => {
       store.getDiscuss();
-      console.log(store.userInfo)
-      console.log(store.discussData)
     },
     'POST',
     '/toHostLike',
@@ -173,11 +202,25 @@ function submitReply(host) {
   );
 }
 
-onMounted(() => {
-  document.addEventListener('click', () => {
-    isShowEmoji.value = false;
-  });
-});
+// 删除留言的弹框
+let dialogVisible = ref(false);
+let deleteDiscussId = ref(''); // 保存二次确认要删除话题的ID
+provide('dialogVisible', dialogVisible);
+function openDialogAndGetHostId(hostId) {
+  deleteDiscussId.value = hostId;
+  dialogVisible.value = true;
+}
+function deleteDiscuss() {
+  useAxios(
+    () => {
+      store.getDiscuss();
+      dialogVisible.value = false;
+    },
+    'post',
+    `/deleteTalk`,
+    {hostId: deleteDiscussId.value}
+  );
+}
 </script>
 
 <style scoped lang="scss">
@@ -212,35 +255,36 @@ section {
       .emoji {
         position: absolute;
         top: 30px;
-        padding: 8px;
-        background-color: #fff;
-        box-shadow: 0 0 3px #aaa;
         &::before {
           content: '';
           position: absolute;
           top: -12px;
-          left: -1px;
+          left: 17px;
           z-index: 10;
           width: 0;
           height: 0;
           border: 6px solid transparent;
-          border-bottom-color: #d8d6d6;
+          border-bottom-color: #000;
         }
         ul {
+          position: relative;
           display: flex;
           flex-wrap: wrap;
-          width: 250px;
-          border-left: 1px solid #d8d6d6;
-          border-bottom: 1px solid #d8d6d6;
+          width: 656px;
+          padding: 10px;
+          z-index: 999;
+          border-radius: 10px;
+          box-shadow: 0 0 4px #aaa;
+          background-color: #fff;
           li {
-            overflow: hidden;
-            width: 25px;
-            height: 25px;
-            border-right: 1px solid #d8d6d6;
-            border-top: 1px solid #d8d6d6;
-            line-height: 25px;
+            width: 35px;
+            height: 35px;
+            text-align: center;
+            line-height: 35px;
             font-size: 18px;
-            box-sizing: border-box;
+            border-radius: 5px;
+            box-shadow: 0 0 3px #aaa;
+            margin: 5px;
           }
         }
       }
@@ -248,14 +292,14 @@ section {
   }
 }
 
-ul {
+ul.discuss {
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
 
   li {
     margin: 10px 0;
-    padding: 10px 20px;
+    padding: 15px 20px;
     font-size: 12px;
     border-radius: 10px;
     box-shadow: 0 0 4px #aaa;
@@ -277,13 +321,12 @@ ul {
           justify-content: space-between;
           font-size: 12px;
           margin-bottom: 10px;
+          letter-spacing: 3px;
           span:nth-child(1) {
             color: #73b899;
-            letter-spacing: 3px;
           }
           span:nth-child(2) {
             color: #aaa;
-            letter-spacing: 2px;
           }
         }
         p.text {
@@ -291,6 +334,7 @@ ul {
           margin-bottom: 16px;
           font-size: 14px;
           span {
+            font-size: 12px;
             color: tomato;
           }
         }
@@ -305,29 +349,42 @@ ul {
             margin: 0 10px 0 5px;
             font-size: 14px;
           }
+          span:nth-child(3) {
+            margin-right: 10px;
+          }
         }
       }
     }
     // 回复框
-    .print-reply {
-      overflow: hidden;
+    .print-reply__wrap {
       width: 100%;
-      height: 0;
-      margin-top: 5px;
-      padding-left: 55px;
-      box-sizing: border-box;
-      transition: height 0.2s;
-      &.show {
-        height: 60px;
-      }
-      .el-button {
-        float: right;
+      margin-top: 15px;
+      text-align: end;
+      .print-reply__input {
+        margin-bottom: 12px;
       }
     }
 
     .reply-wrap {
       margin: 10px 8px 8px 55px;
     }
+  }
+}
+
+.box-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  border-radius: 10px;
+  padding: 20px;
+  letter-spacing: 2px;
+  line-height: 26px;
+  .box-card__btn {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
   }
 }
 </style>

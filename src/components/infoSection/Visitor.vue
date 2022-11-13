@@ -54,8 +54,9 @@ const store = useBlogStore();
         justify-content: space-around;
         align-items: center;
         width: 100%;
-        font-size: 13px;
-        color: rgb(168, 166, 166);
+        font-size: 12px;
+        letter-spacing: 2px;
+        color: #aaa;
         p:nth-child(1) {
           overflow: hidden;
           text-overflow: ellipsis;
