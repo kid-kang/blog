@@ -1,11 +1,12 @@
 <template>
   <el-upload
-    class="avatar-uploader"
     :action="store.baseURL + '/updateAvatar'"
     :show-file-list="false"
     :with-credentials="true"
     :on-success="handleAvatarSuccess"
     :before-upload="beforeAvatarUpload"
+    accept=".jpg,png,gif,jpeg,webp"
+    class="avatar-uploader"
   >
     <!-- 缩略图 -->
     <img v-if="imageUrl" :src="imageUrl" class="avatar" />
@@ -23,7 +24,7 @@ let imageUrl = ref('');
 
 // 上传文件之前的钩子函数，参数为上传的文件，若返回 false 或者返回 Promise 且被 reject，则停止上传。
 function beforeAvatarUpload(file) {
-  const imgfileType = ['image/gif', 'image/jpeg', 'image/jpg', 'image/pjpeg', 'image/x-png', 'image/png'];
+  const imgfileType = ['image/gif', 'image/jpeg', 'image/jpg', 'image/pjpeg', 'image/x-png', 'image/png', 'image/webp'];
   const isAvatar = imgfileType.includes(file.type);
   const isLt5M = file.size / 1024 / 1024 < 5;
   if (!isAvatar) {
@@ -41,7 +42,7 @@ function handleAvatarSuccess(res, file) {
     imageUrl.value = URL.createObjectURL(file.raw); //设置缩略图的路径
     store.updateUserInfo(res.data);
     ElMessage.success(res.message);
-    store.getVisitor()
+    store.getVisitor();
   } else return ElMessage.error(res.message); //上传失败
 }
 </script>

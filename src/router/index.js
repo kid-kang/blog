@@ -53,9 +53,25 @@ const router = createRouter({
       path: '/updateUser',
       name: 'updateUser',
       // route level code-splitting
-      // this generates a separate chunk (Discuss.[hash].js) for this route
+      // this generates a separate chunk (UpdateUser.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/UpdateUser.vue')
+    },
+    {
+      path: '/detail',
+      name: '/detail',
+      // route level code-splitting
+      // this generates a separate chunk (Detail.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Detail.vue')
+    },
+    {
+      path: '/edit',
+      name: '/edit',
+      // route level code-splitting
+      // this generates a separate chunk (Edit.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Edit.vue')
     },
   ]
 });

@@ -50,13 +50,14 @@
       >
         <!-- 缩略图 -->
         <div class="cover-wrap" v-if="imageUrl || formData.coverUrl">
-          <img :src="imageUrl || formData.coverUrl" class="cover" />
+          <img :src="imageUrl || store.baseURL + formData.coverUrl" class="cover" />
         </div>
         <el-icon v-else class="cover-uploader-icon"><Plus /></el-icon>
       </el-upload>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submitForm" round>发表动态</el-button>
+      <el-button v-if="id" type="primary" @click="adit" round>{{ text }}</el-button>
+      <el-button v-else type="primary" @click="submitForm" round>{{ text }}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -69,18 +70,31 @@ import {useAxios} from '@/hooks/useAxios';
 import {useBlogStore} from '@/store';
 import {useRouter} from 'vue-router';
 
+const props = defineProps({
+  formData: {
+    type: Object,
+    default: () => ({
+      title: '',
+      describe: '',
+      mdUrl: '', //md文件的地址
+      coverUrl: '', //封面的地址
+    }),
+  },
+  text: {
+    type: String,
+    default: '发表动态',
+  },
+  id: {
+    type: String,
+  },
+});
+
 let refFormData = ref(null);
 let refMdForm = ref(null);
 let refCoverForm = ref(null);
 
 const store = useBlogStore();
 const disabled = computed(() => (store.userInfo.name ? false : true));
-const formData = reactive({
-  title: '',
-  describe: '',
-  mdUrl: '', //md文件的地址
-  coverUrl: '', //封面的地址
-});
 let imageUrl = ref('');
 
 //添加md文件、成功上传md、上传失败时都会调用mdChange
@@ -89,7 +103,7 @@ function mdChange(file, fileList) {
     //为待上传状态时，对md文件做校验
     if (/^.+\.md$/.test(file.name)) {
       //只有文件后缀名为.md时
-      formData.title = file.name.slice(0, -3);
+      props.formData.title = file.name.slice(0, -3);
     } else {
       ElMessage.error('只能上传.md后缀名的文件');
       fileList.pop(); //从尾部删除文件列表中的文件对象
@@ -112,7 +126,7 @@ function coverChange(file, fileList) {
 
 //从文件列表中删除文件后，触发
 function beforeRemove(file) {
-  formData.title = '';
+  props.formData.title = '';
 }
 
 //点击提交按钮
@@ -123,7 +137,7 @@ function submitForm() {
 //文件上传后
 function mdUploadSuccess(res) {
   if (res.code !== 200) return;
-  formData.mdUrl = res.mdUrl; //得到md文件的后端地址
+  props.formData.mdUrl = res.mdUrl; //得到md文件的后端地址
 
   //md上传成功后，接着上传的封面图
   if (imageUrl.value) {
@@ -137,7 +151,7 @@ function mdUploadSuccess(res) {
 
 function coverUploadSuccess(res) {
   if (res.code !== 200) return;
-  formData.coverUrl = res.coverUrl; //得到cover封面后端的地址
+  props.formData.coverUrl = res.coverUrl; //得到cover封面后端的地址
 
   addArticle(); //提交表单的数据到后端
 }
@@ -152,7 +166,20 @@ function addArticle() {
     },
     'POST',
     '/addArticle',
-    {...formData}
+    {...props.formData}
+  );
+}
+
+// 修改
+function adit() {
+  useAxios(
+    () => {
+      store.getDynamic();
+      router.push('/dynamic');
+    },
+    'POST',
+    '/updateArticle',
+    {id: props.id, doc: {...props.formData}}
   );
 }
 </script>

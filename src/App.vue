@@ -22,6 +22,7 @@ import {useBlogStore} from '@/store';
 const store = useBlogStore();
 store.getVisitor();
 store.getDiscuss();
+store.getDynamic();
 
 let isFixed = useFixed();
 useAvoidLogin();

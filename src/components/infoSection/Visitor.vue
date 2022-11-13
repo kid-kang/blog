@@ -46,7 +46,7 @@ const store = useBlogStore();
         width: 38px;
         height: 38px;
         margin-right: 10px;
-        border-radius: 50%;
+        border-radius: 4px;
       }
       .visit-time {
         display: flex;
