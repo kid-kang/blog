@@ -9,6 +9,7 @@
           <p>{{ item.date }}</p>
         </div>
       </li>
+      <el-alert title="最多只展示8位🎈" type="info" :closable="false" center />
     </ul>
   </div>
 </template>
@@ -29,6 +30,11 @@ const store = useBlogStore();
     height: 25px;
     font-weight: bold;
     font-size: 14px;
+    span {
+      height: 12px;
+      color: #aaa;
+      line-height: 25px;
+    }
   }
 
   ul {
@@ -39,9 +45,9 @@ const store = useBlogStore();
       justify-content: space-between;
       width: 100%;
       padding: 6px 12px;
-      box-shadow: 0 0 4px #aaa;
+      box-shadow: 0 0 2px #aaa;
       border-radius: 10px;
-      margin-top: 4px;
+      margin-bottom: 4px;
       img {
         width: 38px;
         height: 38px;
@@ -49,6 +55,7 @@ const store = useBlogStore();
         border-radius: 4px;
       }
       .visit-time {
+        overflow: hidden;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
@@ -58,6 +65,8 @@ const store = useBlogStore();
         letter-spacing: 2px;
         color: #aaa;
         p:nth-child(1) {
+          width: 100%;
+          text-align: center;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;

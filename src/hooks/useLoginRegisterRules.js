@@ -4,7 +4,7 @@ export const useLoginRegisterRules = function (formData, key) {
       { required: true, message: "请输入昵称" },
       {
         validator(rule, value, callback) {
-          if (/([a-zA-Z0-9_]{1,16})|([\u4e00-\u9fa5]{2,8})|([a-zA-Z0-9_\u4e00-\u9fa5]{3,12})/.test(value)) {
+          if (/^([a-zA-Z0-9\u4e00-\u9fa5]{2,8})$/.test(value) || /^([a-zA-Z0-9_\s]{3,20})$/.test(value)) {
             callback(); //验证成功
           } else {
             callback(new Error("昵称不符合规范"));

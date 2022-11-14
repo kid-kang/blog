@@ -1,6 +1,11 @@
 <template>
   <ul class="dynamic-wrap">
-    <li v-for="dynamic in store.dynamicData" :key="dynamic._id">
+    <el-input @change="searchArticle" placeholder="请输入搜索内容，按回车搜索" v-model="searchText">
+      <template #prefix>
+        <el-icon class="el-input__icon"><search /></el-icon>
+      </template>
+    </el-input>
+    <li v-for="dynamic in showArticleList" :key="dynamic._id">
       <header>
         <h2>{{ dynamic.title }}</h2>
         <p class="date">{{ new Date(dynamic.date).toLocaleString() }}</p>
@@ -12,7 +17,10 @@
         <div class="describe-wrap">
           <p class="describe">{{ dynamic.describe }}</p>
           <div class="read">
-            <span>阅读量：{{ dynamic.readingNum }}</span>
+            <div class="message">
+              <span>作者：{{ dynamic.author.name }}</span> |
+              <span>阅读量：{{ dynamic.readingNum }}</span>
+            </div>
             <div class="btn-group">
               <el-button
                 v-if="store.userInfo.admin || store.userInfo._id === dynamic.author._id"
@@ -51,6 +59,7 @@
 </template>
 
 <script setup>
+import {Search} from '@element-plus/icons-vue';
 import {useRouter} from 'vue-router';
 import {useBlogStore} from '@/store';
 import {useAxios} from '@/hooks/useAxios';
@@ -83,6 +92,25 @@ function deleteDynamic() {
     {id: deleteDynamicId.value}
   );
 }
+
+let searchText = ref('');
+let myDynamic = []; //存自己的文章
+let unMyDynamic = []; //别人的的文章
+store.dynamicData.forEach(val => {
+  if (val.author._id === store.userInfo._id) myDynamic.push(val);
+  else unMyDynamic.push(val);
+});
+
+let showArticleList = ref(myDynamic.concat(unMyDynamic)); //初始化 + 自己的文章放在前面
+function searchArticle() {
+  let text = searchText.value.trim();
+  if (text) {
+    //根据关键词，显示匹配的文章
+    showArticleList.value = store.dynamicData.filter(item => item.title.includes(text) || item.describe.includes(text));
+  } else {
+    showArticleList.value = myDynamic.concat(unMyDynamic);
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -98,7 +126,7 @@ function deleteDynamic() {
     box-shadow: 0 0 4px #aaa;
     padding: 8px;
     letter-spacing: 3px;
-    margin-bottom: 15px;
+    margin-top: 15px;
 
     header {
       display: flex;

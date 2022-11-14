@@ -1,6 +1,7 @@
 <template>
   <el-form ref="refFormData" :model="formData" :disabled="disabled" label-width="100px" class="share-wrap">
     <el-alert title="登录后才能发表动态哦！🎈" type="info" v-if="disabled" :closable="false" center />
+    <el-alert title="上传的md文件中无法显示本地的图片哦！🎈" type="info" v-else :closable="false" center />
     <el-form-item label="标题">
       <el-input v-model="formData.title" placeholder="可以自动获取上传的md文件名称"></el-input>
     </el-form-item>

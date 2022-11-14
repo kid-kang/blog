@@ -1,5 +1,6 @@
 <template>
   <el-form ref="refFormData" :model="formData" label-width="100px" class="share-wrap">
+    <el-alert title="上传的md文件中无法显示本地的图片哦！🎈" type="info" :closable="false" center />
     <el-form-item label="标题">
       <el-input v-model="formData.title" placeholder="可以自动获取上传的md文件名称"></el-input>
     </el-form-item>
@@ -69,11 +70,17 @@ import {useBlogStore} from '@/store';
 import {useRouter, useRoute} from 'vue-router';
 
 const store = useBlogStore();
+const router = useRouter();
 const route = useRoute();
 let refFormData = ref(null);
 let refMdForm = ref(null);
 let refCoverForm = ref(null);
 const formData = reactive({...store.dynamicData.find(val => val._id === route.query.id)});
+// 鉴权重定向  如果这篇不是本人发表的 or 不是管理员 则非法进入编辑页
+if (formData.author._di !== store.userInfo._id && !store.userInfo.admin) {
+  ElMessage.error('您非法进入编辑页');
+  router.replace('/');
+}
 
 let imageUrl = ref('');
 let monitorMd = ref(false);
@@ -135,7 +142,6 @@ function err() {
 }
 
 // 修改
-const router = useRouter();
 function edit() {
   useAxios(
     () => {

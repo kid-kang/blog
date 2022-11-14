@@ -139,6 +139,7 @@ function submitLogin() {
   border-radius: 10px 10px 0 0;
 
   .logined {
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
