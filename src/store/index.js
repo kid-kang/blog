@@ -8,9 +8,8 @@ export const useBlogStore = defineStore('blog', {
     userInfo: {},
     visitorData: [],
     discussData: [],
-    allDynamicData: [],
+    dynamicData: [],
     showDynamicData: [],
-    skip: 5,  //初始化showDynamicData的数量
     friendLink: [],
   }),
   actions: {
@@ -60,16 +59,8 @@ export const useBlogStore = defineStore('blog', {
     },
     getDynamic() {
       useAxios((res) => {
-        this.allDynamicData = res.data; //获取所有文章动态数据
-        this.showDynamicData = this.allDynamicData.slice(0, this.skip);
+        this.dynamicData = res.data; //获取所有文章动态数据
       }, 'get', '/getAllArticle');
-    },
-    loadDynamic() {
-      if (!this.allDynamicData.length <= this.skip) return; //全部都加载完数据时直接返回
-      this.showDynamicData.push(
-        ...this.allDynamicData.slice(this.skip, this.skip + 5) // 每次加载5条数据
-      );
-      this.skip += 5;
     },
     getFriendLink() {
       useAxios((res) => {

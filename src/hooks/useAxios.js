@@ -20,6 +20,8 @@ $axios.interceptors.response.use(
   err => err
 );
 
+export {$axios}
+
 
 
 export async function useAxios(cb, method, url, data) {

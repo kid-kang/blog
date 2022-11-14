@@ -1,14 +1,14 @@
 <template>
-  <el-table :data="contactData" style="width: 100%">
-    <el-table-column label="日期" width="98">
+  <el-table :data="feedbackData">
+    <el-table-column label="日期" width="150" :show-overflow-tooltip="true">
       <template #default="scope">
         <span>{{ new Date(scope.row.date).toLocaleString() }}</span>
       </template>
     </el-table-column>
-    <el-table-column prop="name" label="名称" width="100"> </el-table-column>
-    <el-table-column prop="email" label="Email"> </el-table-column>
-    <el-table-column prop="message" label="内容"> </el-table-column>
-    <el-table-column label="是否处理">
+    <el-table-column prop="name" label="名称" width="100" :show-overflow-tooltip="true" />
+    <el-table-column prop="email" label="Email" width="180" :show-overflow-tooltip="true" />
+    <el-table-column prop="message" label="内容" width="150" :show-overflow-tooltip="true" />
+    <el-table-column label="是否处理" fixed="right" width="180" :show-overflow-tooltip="true">
       <template #default="scope">
         <el-switch
           style="display: block"
@@ -18,55 +18,51 @@
           active-text="已阅读"
           inactive-text="未阅读"
           @change="switchState(scope.row)"
-        >
-        </el-switch>
+        ></el-switch>
       </template>
     </el-table-column>
   </el-table>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
-import { ElMessage } from 'element-plus'
-const contactData = ref([])
-const getContactData = async () => {
-  //获取所有的反馈数据
-  //   let { data } = await this.$axios({
-  //     method: 'GET',
-  //     url: '/getFeedback',
-  //   })
-  //   if (data.code) return //没有数据
-  //   contactData = data.data
-  let date = new Date()
-  contactData.value = [
-    {
-      id: 123,
-      date,
-      name: '123',
-      email: '123@123.com',
-      message: '123',
-      reading: true,
-    },
-  ]
-}
-//点击开关修改状态时触发
-const switchState = async (item) => {
-  //   let { data } = await this.$axios({
-  //     method: 'POST',
-  //     url: '/updateFeedback',
-  //     data: {
-  //       id: item._id,
-  //       reading: item.reading, //开关的状态布尔值
-  //     },
-  //   })
-  //   if (data.code) return ElMessage.error('状态修改失败') //失败
-  ElMessage.success('状态修改成功')
-  getContactData()
-}
+import {ref, onMounted} from 'vue';
+import {useAxios} from '@/hooks/useAxios';
+const feedbackData = ref([]);
 
-onMounted(() => {
-  getContactData()
-})
+function getContactData() {
+  useAxios(
+    res => {
+      feedbackData.value = res.data;
+    },
+    'get',
+    '/getFeedback'
+  );
+}
+onMounted(() => getContactData());
+
+//点击开关修改状态时触发
+function switchState(row) {
+  useAxios(
+    () => {
+      getContactData();
+    },
+    'POST',
+    '/updateFeedback',
+    {id: row._id, reading: row.reading}
+  );
+}
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.el-table {
+  border-radius: 10px;
+  padding: 18px;
+  .el-switch {
+    display: flex !important;
+    align-items: center;
+    .el-switch__core {
+      margin-top: 10px;
+    }
+  }
+}
+</style>

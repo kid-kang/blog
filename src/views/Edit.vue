@@ -23,9 +23,9 @@
         :limit="1"
         :with-credentials="true"
         :on-change="mdChange"
-        :on-error="mdErr"
-        :before-remove="beforeRemove"
+        :on-error="err"
         :on-success="mdUploadSuccess"
+        :before-remove="beforeRemove"
       >
         <el-icon class="el-icon--upload"><upload-filled /></el-icon>
         <div class="el-upload__text">
@@ -43,7 +43,7 @@
         :with-credentials="true"
         :on-change="coverChange"
         :on-success="coverUploadSuccess"
-        :on-error="coverErr"
+        :on-error="err"
         ref="refCoverForm"
         class="cover-uploader"
       >
@@ -73,9 +73,10 @@ const route = useRoute();
 let refFormData = ref(null);
 let refMdForm = ref(null);
 let refCoverForm = ref(null);
-const formData = reactive({...store.showDynamicData.find(val => val._id === route.query.id)});
+const formData = reactive({...store.dynamicData.find(val => val._id === route.query.id)});
 
 let imageUrl = ref('');
+let monitorMd = ref(false);
 
 //添加md文件、成功上传md、上传失败时都会调用mdChange
 function mdChange(file, fileList) {
@@ -84,7 +85,7 @@ function mdChange(file, fileList) {
     if (/^.+\.md$/.test(file.name)) {
       //只有文件后缀名为.md时
       formData.title = file.name.slice(0, -3);
-      console.log(formData.title);
+      monitorMd.value = true;
     } else {
       ElMessage.error('只能上传.md后缀名的文件');
       fileList.pop(); //从尾部删除文件列表中的文件对象
@@ -112,38 +113,30 @@ function beforeRemove(file) {
 
 //点击提交按钮
 function submitForm() {
-  console.log('点击修改', formData);
-  refMdForm.value.submit();
+  if (monitorMd.value) refMdForm.value.submit();
+  else if (imageUrl.value) refCoverForm.value.submit();
+  else edit();
 }
 
 //文件上传成功后
 function mdUploadSuccess(res) {
-  console.log('文件上传成功后')
   if (res.mdUrl) formData.mdUrl = res.mdUrl;
   if (imageUrl.value) refCoverForm.value.submit();
-  else adit();
-}
-
-function mdErr() {
-  console.log('文件上传err后')
-  if (imageUrl.value) refCoverForm.value.submit();
-  else adit();
+  else edit();
 }
 
 function coverUploadSuccess(res) {
   if (res.coverUrl) formData.coverUrl = res.coverUrl;
-  console.log('封面上传成功', res);
-  adit();
+  edit();
 }
 
-function coverErr() {
-  adit();
+function err() {
+  ElMessage.error('文件上传失败');
 }
 
 // 修改
 const router = useRouter();
-function adit() {
-  console.log('请求发出')
+function edit() {
   useAxios(
     () => {
       store.getDynamic();

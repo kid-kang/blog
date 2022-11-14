@@ -1,6 +1,6 @@
 <template>
-  <ul class="dynamic-wrap" v-infinite-scroll="store.loadDynamic" infinite-scroll-distance="1">
-    <li v-for="dynamic in store.showDynamicData" :key="dynamic._id">
+  <ul class="dynamic-wrap">
+    <li v-for="dynamic in store.dynamicData" :key="dynamic._id">
       <header>
         <h2>{{ dynamic.title }}</h2>
         <p class="date">{{ new Date(dynamic.date).toLocaleString() }}</p>
