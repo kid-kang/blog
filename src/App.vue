@@ -23,6 +23,7 @@ const store = useBlogStore();
 store.getVisitor();
 store.getDiscuss();
 store.getDynamic();
+store.getFriendLink();
 
 let isFixed = useFixed();
 useAvoidLogin();

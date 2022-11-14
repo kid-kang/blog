@@ -26,28 +26,6 @@
       </p>
     </li>
     <li>
-      <h2>反馈</h2>
-      <p>有任何问题请联系我吧，收到消息后会给您回复邮件的哦♪(^∇^*)，若是想在本站申请友链，请按照以下格式提交反馈👇</p>
-      <p class="example">名称：乐此不疲</p>
-      <p class="example">主页地址：https://github.com/kid-kang</p>
-      <p class="example">图标链接：https://avatars.githubusercontent.com/u/85065275?v=4</p>
-      <p class="example">描述：爱踢足球的前端小码农一枚</p>
-      <el-form :model="feedbackForm" :rules="rules" ref="refFeedbackForm" label-position="top">
-        <el-form-item label="你的名字是？" prop="name">
-          <el-input v-model="feedbackForm.name" />
-        </el-form-item>
-        <el-form-item label="你的邮箱" prop="email">
-          <el-input v-model="feedbackForm.email" />
-        </el-form-item>
-        <el-form-item label="你要发送的消息内容" prop="message">
-          <el-input v-model="feedbackForm.message" type="textarea" :autosize="{minRows: 1, maxRows: 7}" />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm" round>发送</el-button>
-        </el-form-item>
-      </el-form>
-    </li>
-    <li>
       <h2>关于我</h2>
       <p>
         小王-前端工程师，精通 Ai、Fw、Fl、Br、Ae、Pr、Id、Ps 等软件的安装与卸载，精通
@@ -70,38 +48,7 @@
   </ul>
 </template>
 
-<script setup>
-import {useAxios} from '@/hooks/useAxios';
-import {reactive, ref} from 'vue';
-
-const rules = {
-  name: [{required: true, message: '请填写您的称呼', trigger: 'input'}],
-  email: [{required: true, type: 'email', message: '请填写正确的邮箱', trigger: 'input'}],
-  message: [{required: true, message: '请填反馈内容', trigger: 'input'}],
-};
-let refFeedbackForm = ref(null);
-
-const feedbackForm = reactive({
-  name: '',
-  email: '',
-  message: '',
-});
-
-function submitForm() {
-  refFeedbackForm.value.validate(bool => {
-    if (bool) {
-      useAxios(
-        () => {
-          refFeedbackForm.value.resetFields();
-        },
-        'POST',
-        '/addFeedback',
-        feedbackForm
-      );
-    }
-  });
-}
-</script>
+<script setup></script>
 
 <style scoped lang="scss">
 ul li {
@@ -148,14 +95,6 @@ ul li {
       box-shadow: 0 0 4px #aaa;
       border-radius: 10px;
     }
-  }
-
-  .el-form {
-    margin-top: 30px;
-  }
-
-  p.example {
-    user-select: text;
   }
 }
 </style>

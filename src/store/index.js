@@ -11,6 +11,7 @@ export const useBlogStore = defineStore('blog', {
     allDynamicData: [],
     showDynamicData: [],
     skip: 5,  //初始化showDynamicData的数量
+    friendLink: [],
   }),
   actions: {
     updateUserInfo(userInfo) {
@@ -69,6 +70,11 @@ export const useBlogStore = defineStore('blog', {
         ...this.allDynamicData.slice(this.skip, this.skip + 5) // 每次加载5条数据
       );
       this.skip += 5;
-    }
+    },
+    getFriendLink() {
+      useAxios((res) => {
+        this.friendLink = res.data;
+      }, 'get', '/getLinks');
+    },
   },
 });

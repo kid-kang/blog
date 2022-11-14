@@ -192,6 +192,10 @@ function addArticle() {
     }
   }
 
+  .upload-demo {
+    height: 246px;
+  }
+
   .cover-uploader {
     height: 178px;
   }

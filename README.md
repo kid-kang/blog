@@ -82,6 +82,7 @@ export function useRedirect(isAdminPages) {
   });
 }
 ```
+- `<el-form :model="dialogFormData" :rules="rules">` 中的model属性不能嵌套，不然可能会绑定不到
 
 ## Project Setup
 
