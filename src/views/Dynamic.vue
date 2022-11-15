@@ -1,6 +1,6 @@
 <template>
   <ul class="dynamic-wrap">
-    <el-input @change="searchArticle" placeholder="请输入搜索内容，按回车搜索" v-model="searchText">
+    <el-input @change="searchArticle" placeholder="请输入搜索内容" v-model="searchText">
       <template #prefix>
         <el-icon class="el-input__icon"><search /></el-icon>
       </template>
@@ -18,7 +18,8 @@
           <p class="describe">{{ dynamic.describe }}</p>
           <div class="read">
             <div class="message">
-              <span>作者：{{ dynamic.author.name }}</span> |
+              <span>作者：{{ dynamic.author.name }}</span>
+              |
               <span>阅读量：{{ dynamic.readingNum }}</span>
             </div>
             <div class="btn-group">
@@ -64,7 +65,7 @@ import {useRouter} from 'vue-router';
 import {useBlogStore} from '@/store';
 import {useAxios} from '@/hooks/useAxios';
 import Dialog from '@/components/common/Dialog.vue';
-import {ref, provide} from 'vue';
+import {ref, provide, computed} from 'vue';
 
 const store = useBlogStore();
 const router = useRouter();
@@ -84,8 +85,8 @@ function openDialogAndGetDynamicId(dynamicId) {
 function deleteDynamic() {
   useAxios(
     () => {
-      store.getDynamic();
       dialogVisible.value = false;
+      store.getDynamic();
     },
     'post',
     '/deleteArticle',
@@ -94,23 +95,24 @@ function deleteDynamic() {
 }
 
 let searchText = ref('');
-let myDynamic = []; //存自己的文章
-let unMyDynamic = []; //别人的的文章
-store.dynamicData.forEach(val => {
-  if (val.author._id === store.userInfo._id) myDynamic.push(val);
-  else unMyDynamic.push(val);
-});
 
-let showArticleList = ref(myDynamic.concat(unMyDynamic)); //初始化 + 自己的文章放在前面
-function searchArticle() {
-  let text = searchText.value.trim();
-  if (text) {
-    //根据关键词，显示匹配的文章
-    showArticleList.value = store.dynamicData.filter(item => item.title.includes(text) || item.describe.includes(text));
-  } else {
-    showArticleList.value = myDynamic.concat(unMyDynamic);
+let showArticleList = computed(() => {
+  if (searchText.value.trim()) {
+    return store.dynamicData.filter(
+      item => item.title.includes(text) || item.describe.includes(text) || item.author.name.includes(text)
+    );
   }
-}
+  return store.myDynamic.concat(store.unMyDynamic);
+});
+// function searchArticle() {
+//   let text = searchText.value.trim();
+//   if (text) {
+//     //根据关键词，显示匹配的文章
+//     showArticleList.value = store.dynamicData.filter(item => item.title.includes(text) || item.describe.includes(text) || item.author.name.includes(text));
+//   } else {
+//     showArticleList.value = myDynamic.concat(unMyDynamic);
+//   }
+// }
 </script>
 
 <style scoped lang="scss">

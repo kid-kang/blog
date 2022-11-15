@@ -3,13 +3,17 @@ import { useAxios } from '@/hooks/useAxios';
 
 export const useBlogStore = defineStore('blog', {
   state: () => ({
-    baseURL: 'http://127.0.0.1:3300',
-    // baseURL: 'http://116.62.33.47:3300',
+    // baseURL: 'http://127.0.0.1:3300',
+    baseURL: 'http://116.62.33.47:3300',
     userInfo: {},
     visitorData: [],
     discussData: [],
+
     dynamicData: [],
-    showDynamicData: [],
+    myDynamic: [],
+    unMyDynamic: [],
+    showArticleList: [],
+
     friendLink: [],
   }),
   actions: {
@@ -60,6 +64,12 @@ export const useBlogStore = defineStore('blog', {
     getDynamic() {
       useAxios((res) => {
         this.dynamicData = res.data; //获取所有文章动态数据
+        this.myDynamic = [];
+        this.unMyDynamic = [];
+        this.dynamicData.forEach(val => {
+          if (val.author._id === this.userInfo._id) this.myDynamic.push(val);
+          else this.unMyDynamic.push(val);
+        });
       }, 'get', '/getAllArticle');
     },
     getFriendLink() {
