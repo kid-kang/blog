@@ -138,12 +138,17 @@ function searchArticle() {
         letter-spacing: 3px;
         line-height: 24px;
         text-indent: 10px;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .date {
         font-weight: bolder;
         color: #6bc30d;
         font-size: 16px;
         line-height: 24px;
+        width: 193px;
       }
     }
     main {
