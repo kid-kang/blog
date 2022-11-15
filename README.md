@@ -97,9 +97,11 @@ export function useRedirect(isAdminPages) {
 - 后端升级https遇到的问题
 
   - 下载https包然后配置
-  - 遇见NET::ERR_CERT_COMMON_NAME_INVALID这个报错的原因是网站ssl证书颁发的域名与网站实际打开的域名（或者请求的URL）不匹配
+  - 然后发现https放在本地运行无效  要放在线上环境
+  - 遇见`NET::ERR_CERT_COMMON_NAME_INVALID`这个报错的原因是网站ssl证书颁发的域名与网站实际打开的域名（或者请求的URL）不匹配
 
   - 我的项目在部署https访问的时候报了该错误。于是我看了一下请求后台就接口地址。发现是(IP)https://ip/api，不是域名(https://www.xxx.com/api)。所以会报这个错。于是去前端把axios的请求路径换成域名形式的就ok。然后打包，重新上线！
+  - [解释](https://blog.csdn.net/xzwwjl1314/article/details/105006707)
 
 ## Project Setup
 
