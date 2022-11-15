@@ -2,8 +2,8 @@ import axios from "axios";
 import { ElMessage } from 'element-plus';
 
 const $axios = axios.create({
-  // baseURL: 'http://127.0.0.1:3300',
-  baseURL: 'http://116.62.33.47:3300',
+  // baseURL: 'https://127.0.0.1:3301',
+  baseURL: 'https://wangzhengkang.cool:3301',
   withCredentials: true,  //携带cookie数据随着请求走;
   timeout: 3000
 });
