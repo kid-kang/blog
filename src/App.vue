@@ -19,14 +19,15 @@ import {useFixed} from './hooks/useFixed';
 import {useAvoidLogin} from './hooks/useAvoidLogin';
 import {useBlogStore} from '@/store';
 
+useAvoidLogin(); // 如果cookie有效则免登录
+
 const store = useBlogStore();
 store.getVisitor();
-store.getDiscuss();
 store.getDynamic();
 store.getFriendLink();
+store.getDiscuss();
 
 let isFixed = useFixed();
-useAvoidLogin();
 </script>
 
 <style scoped>

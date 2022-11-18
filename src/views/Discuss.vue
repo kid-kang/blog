@@ -139,7 +139,7 @@ function toHostLike(hostId) {
   if (!isLogin()) return false;
 
   useAxios(
-    //提交当前的评论hostId + 当前点击了按钮的用户id
+    //提交当前的评论hostId
     () => {
       store.getDiscuss();
     },
