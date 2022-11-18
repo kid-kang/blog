@@ -1,6 +1,6 @@
 <template>
   <ul class="dynamic-wrap">
-    <el-input @change="searchArticle" placeholder="请输入搜索内容" v-model="searchText">
+    <el-input placeholder="请输入搜索内容" v-model="searchText">
       <template #prefix>
         <el-icon class="el-input__icon"><search /></el-icon>
       </template>
@@ -95,24 +95,16 @@ function deleteDynamic() {
 }
 
 let searchText = ref('');
-
+// 动态搜索显示的文章
 let showArticleList = computed(() => {
-  if (searchText.value.trim()) {
+  const text = searchText.value.trim()
+  if (text) {
     return store.dynamicData.filter(
       item => item.title.includes(text) || item.describe.includes(text) || item.author.name.includes(text)
     );
   }
   return store.myDynamic.concat(store.unMyDynamic);
 });
-// function searchArticle() {
-//   let text = searchText.value.trim();
-//   if (text) {
-//     //根据关键词，显示匹配的文章
-//     showArticleList.value = store.dynamicData.filter(item => item.title.includes(text) || item.describe.includes(text) || item.author.name.includes(text));
-//   } else {
-//     showArticleList.value = myDynamic.concat(unMyDynamic);
-//   }
-// }
 </script>
 
 <style scoped lang="scss">

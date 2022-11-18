@@ -1,6 +1,6 @@
 <template>
   <div class="friendlink-Manage__wrap">
-    <el-table :data="store.friendLink" style="width: 100%" max-height="250">
+    <el-table :data="store.friendLink" style="width: 100%">
       <el-table-column prop="name" label="名称" width="100" :show-overflow-tooltip="true" />
       <el-table-column prop="home" label="首页" width="180" :show-overflow-tooltip="true" />
       <el-table-column prop="logo" label="Logo" width="150" :show-overflow-tooltip="true" />

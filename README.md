@@ -83,6 +83,7 @@ export function useRedirect(isAdminPages) {
 }
 ```
 - `<el-form :model="dialogFormData" :rules="rules">` 中的model属性不能嵌套，不然可能会绑定不到
+- mongo表定义时间要写 Date.now ，不能加括号。
 
 ## 上线遇到的问题
 
