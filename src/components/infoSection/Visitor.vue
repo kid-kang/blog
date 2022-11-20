@@ -66,6 +66,7 @@ const store = useBlogStore();
         color: #aaa;
         p:nth-child(1) {
           width: 100%;
+          line-height: 14px;
           text-align: center;
           overflow: hidden;
           text-overflow: ellipsis;

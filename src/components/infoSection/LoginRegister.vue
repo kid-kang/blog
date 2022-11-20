@@ -158,6 +158,7 @@ function submitLogin() {
       text-overflow: ellipsis;
       white-space: nowrap;
       font-size: 14px;
+      line-height: 18px;
       letter-spacing: 3px;
       font-weight: 600;
       // color: #6bc30d;
