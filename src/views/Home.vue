@@ -37,8 +37,8 @@
       <p>有必要强调一下！我还没有脱发！大概是写的代码还不够多...</p>
       <p>什么?想加我微信？还是第一次被别人要微信，害羞🙈，什么？还要打赏我？幸福来得太突然了🤡</p>
       <p class="QR-code">
-        <img src="https://tva1.sinaimg.cn/large/007dOMStgy1h80t7dn7a6j30qe0pkdll.jpg" alt="二维码" />
-        <img src="https://tva1.sinaimg.cn/large/007dOMStgy1h80t7qrrgfj30ir0kf76y.jpg" alt="二维码" />
+        <img src="../../public/weixin.png" alt="二维码" />
+        <img src="../../public/shoukuanma.png" alt="二维码" />
       </p>
     </li>
     <li>

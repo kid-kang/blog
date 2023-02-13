@@ -34,12 +34,7 @@ body {
 	line-height: 1;
   min-height: 100vh;
   min-width: 1080px;
-  /* background: url("../../public/bg-left.png") no-repeat 0 50px fixed,
-  url("../../public/bg-right.png") no-repeat right 50px fixed; */
-  /* background: url('https://tva1.sinaimg.cn/large/007dOMStgy1h80g7z72rmj32yo1o0kd9.jpg') no-repeat center/100% 100% fixed; */
-  /* background: url('https://tva1.sinaimg.cn/large/007dOMStgy1h80g9kdbe0j31hc0u011g.jpg') no-repeat center/100% 100% fixed; */
-  /* background: url('https://tva1.sinaimg.cn/large/007dOMStgy1h80gd8hx2vj35sb3uynpi.jpg') no-repeat center/100% 100% fixed; */
-  background: url('https://tva1.sinaimg.cn/large/007dOMStgy1h80giqdl8ij31hc0u0h8g.jpg') no-repeat top left/cover fixed;
+  background: url('https://wangzhengkang.cool:3301/cover/1668668662837.jpg') no-repeat top left/cover fixed;
   background-color: #f2f2f2;
 }
 *::-webkit-scrollbar {
