@@ -41,7 +41,6 @@ let isFixed = useFixed();
   width: 268px;
   margin-right: 12px;
   border-radius: 10px;
-  /* box-shadow: 0 0 4px #ddd; */
 }
 
 .app-wrap .info-section__box.fixed {
@@ -51,9 +50,5 @@ let isFixed = useFixed();
 .app-wrap .router-view__box {
   min-height: 100vh;
   width: 800px;
-  /* padding: 25px 20px; */
-  /* border-radius: 10px; */
-  /* box-shadow: 0 0 4px #ddd; */
-  /* background-color: #fff; */
 }
 </style>

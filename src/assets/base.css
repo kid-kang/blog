@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Quicksand";
-  src: url("./Quicksand-Light.ttf");
+  src: url("../../public/Quicksand-Light.ttf");
 }
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -34,7 +34,7 @@ body {
 	line-height: 1;
   min-height: 100vh;
   min-width: 1080px;
-  background: url('https://wangzhengkang.cool:3301/cover/1668668662837.jpg') no-repeat top left/cover fixed;
+  background: url('../../public/beijingtu2.jpg') no-repeat top left/cover fixed;
   background-color: #f2f2f2;
 }
 *::-webkit-scrollbar {

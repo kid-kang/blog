@@ -3,17 +3,14 @@ import { useAxios } from '@/hooks/useAxios';
 
 export const useBlogStore = defineStore('blog', {
   state: () => ({
-    // baseURL: 'https://127.0.0.1:3301',
-    baseURL: 'https://wangzhengkang.cool:3301',
+    baseURL: 'http://127.0.0.1:3300',
     userInfo: {},
     visitorData: [],
     discussData: [],
-
     dynamicData: [],
     myDynamic: [],
     unMyDynamic: [],
     showArticleList: [],
-
     friendLink: [],
   }),
   actions: {
