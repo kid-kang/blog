@@ -12,22 +12,22 @@
 </template>
 
 <script setup>
-import {RouterView} from 'vue-router';
-import TopNav from './components/TopNav.vue';
-import InfoSection from './components/InfoSection.vue';
-import {useFixed} from './hooks/useFixed';
-import {useAvoidLogin} from './hooks/useAvoidLogin';
-import {useBlogStore} from '@/store';
+import {RouterView} from 'vue-router'
+import TopNav from './components/TopNav.vue'
+import InfoSection from './components/InfoSection.vue'
+import {useFixed} from './hooks/useFixed'
+import {useAvoidLogin} from './hooks/useAvoidLogin'
+import {useBlogStore} from '@/store'
 
-useAvoidLogin(); // 如果cookie有效则免登录
+useAvoidLogin() // 如果cookie有效则免登录
 
-const store = useBlogStore();
-store.getVisitor();
-store.getDynamic();
-store.getFriendLink();
-store.getDiscuss();
+const store = useBlogStore()
+store.getVisitor()
+store.getDynamic()
+store.getFriendLink()
+store.getDiscuss()
 
-let isFixed = useFixed();
+let isFixed = useFixed()
 </script>
 
 <style scoped>
