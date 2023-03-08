@@ -1,8 +1,8 @@
-import { fileURLToPath, URL } from 'node:url';
-import importToCDN, { autoComplete } from 'vite-plugin-cdn-import';
+import { fileURLToPath, URL } from 'node:url'
+import importToCDN, { autoComplete } from 'vite-plugin-cdn-import'
 
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -31,9 +31,12 @@ export default defineConfig({
       ],
     }),
   ],
+  server: {
+    host: '127.0.0.1',
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   }
-});
+})
