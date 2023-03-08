@@ -15,8 +15,8 @@
 </template>
 
 <script setup>
-import {useBlogStore} from '@/store';
-const store = useBlogStore();
+import {useBlogStore} from '@/store'
+const store = useBlogStore()
 </script>
 
 <style scoped lang="scss">
@@ -63,15 +63,21 @@ const store = useBlogStore();
         width: 100%;
         font-size: 12px;
         letter-spacing: 2px;
+        text-align: center;
         color: #aaa;
         p:nth-child(1) {
-          width: 100%;
-          line-height: 14px;
-          text-align: center;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          line-height: 14px;
+          width: 100%;
           color: #000;
+        }
+        p:nth-child(2) {
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
     }

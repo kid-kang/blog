@@ -1,6 +1,27 @@
 <template>
   <div class="my-info" :class="{'add-border-radius': !store.userInfo.name}">
-    <div class="unlogin" v-if="!store.userInfo.name" @click="openDialog">登陆/注册</div>
+    <!-- <div class="unlogin" v-if="!store.userInfo.name" @click="openDialog">登陆/注册</div> -->
+    <div class="unlogin" v-if="!store.userInfo.name" @click="openDialog">
+      <svg
+        t="1678280330652"
+        class="icon"
+        viewBox="0 0 1024 1024"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        p-id="3391"
+      >
+        <path
+          d="M841.3 645.4c18.9-22.7 15.4-56.2-7.6-74.8-53.4-43-115.2-74.5-180.9-93.3C727.2 432.4 777 351.6 777 259.6c-0.1-140.6-116.3-255-259.1-255S258.8 119 258.8 259.7c0 90.3 47.9 169.7 119.9 215-83.3 22-160 64.5-223.2 125.2C60 691.6 5.3 814.2 1.7 945.3c-0.1 4.7-0.2 9.4-0.2 14.1 0 29.3 24.2 53.1 54 53.1s54-23.8 54-53.1c0-3.7 0.1-7.4 0.2-11.2 6-215.6 182.5-384.5 401.7-384.5 92.5 0 182.7 31.7 254.2 89.2 22.8 18.6 56.8 15.3 75.7-7.5zM517.9 110.9c83.3 0 151.2 66.8 151.2 148.8s-67.8 148.8-151.2 148.8-151.2-66.8-151.2-148.8 67.8-148.8 151.2-148.8z"
+          fill="#333333"
+          p-id="3392"
+        ></path>
+        <path
+          d="M969.5 809.9h-38.7v-38.1c0-29.2-24.3-53.1-54-53.1s-54 23.9-54 53.1v38.1h-38.7c-29.7 0-54 23.9-54 53.1s24.3 53.1 54 53.1h38.7v38.1c0 29.2 24.3 53.1 54 53.1s54-23.9 54-53.1v-38.1h38.7c29.7 0 54-23.9 54-53.1s-24.4-53.1-54-53.1z"
+          fill="#10346D"
+          p-id="3393"
+        ></path>
+      </svg>
+    </div>
     <div class="logined" v-else>
       <img :src="store.baseURL + store.userInfo.avatar" alt="头像" />
       <p>{{ store.userInfo.name }}</p>
@@ -54,16 +75,16 @@
 </template>
 
 <script setup>
-import {useAxios} from '@/hooks/useAxios';
-import Dialog from '@/components/common/Dialog.vue';
-import {useLoginRegisterRules} from '@/hooks/useLoginRegisterRules';
-import {ref, reactive, provide} from 'vue';
-import {useBlogStore} from '@/store';
+import {useAxios} from '@/hooks/useAxios'
+import Dialog from '@/components/common/Dialog.vue'
+import {useLoginRegisterRules} from '@/hooks/useLoginRegisterRules'
+import {ref, reactive, provide} from 'vue'
+import {useBlogStore} from '@/store'
 
-let dialogVisible = ref(false);
-let activeName = ref('login');
-let refLogForm = ref(null);
-let refRegForm = ref(null);
+let dialogVisible = ref(false)
+let activeName = ref('login')
+let refLogForm = ref(null)
+let refRegForm = ref(null)
 const formData = reactive({
   regForm: {
     name: '',
@@ -75,13 +96,13 @@ const formData = reactive({
     user: '',
     password: '',
   },
-});
-const rules = useLoginRegisterRules(formData, 'regForm');
-const store = useBlogStore();
-provide('dialogVisible', dialogVisible);
+})
+const rules = useLoginRegisterRules(formData, 'regForm')
+const store = useBlogStore()
+provide('dialogVisible', dialogVisible)
 
 function openDialog() {
-  dialogVisible.value = true;
+  dialogVisible.value = true
 }
 
 // 注册按钮
@@ -91,8 +112,8 @@ function submitRegister() {
       //表单数据校验成功
       useAxios(
         () => {
-          refRegForm.value.resetFields(); //清空表单数据
-          activeName.value = 'login';
+          refRegForm.value.resetFields() //清空表单数据
+          activeName.value = 'login'
         },
         'POST',
         '/register',
@@ -101,9 +122,9 @@ function submitRegister() {
           user: formData.regForm.user,
           password: formData.regForm.password,
         }
-      );
+      )
     }
-  });
+  })
 }
 
 // 登录按钮
@@ -113,10 +134,10 @@ function submitLogin() {
       //表单数据校验成功
       useAxios(
         res => {
-          refLogForm.value.resetFields(); //清空表单数据
-          dialogVisible.value = false; //关闭dialog
-          store.updateUserInfo(res.data); //存储用户信息
-          store.getVisitor(); //更新访客
+          refLogForm.value.resetFields() //清空表单数据
+          dialogVisible.value = false //关闭dialog
+          store.updateUserInfo(res.data) //存储用户信息
+          store.getVisitor() //更新访客
         },
         'POST',
         '/login',
@@ -124,9 +145,9 @@ function submitLogin() {
           user: formData.logForm.user,
           password: formData.logForm.password,
         }
-      );
+      )
     }
-  });
+  })
 }
 </script>
 
@@ -145,6 +166,7 @@ function submitLogin() {
     justify-content: space-between;
     align-items: center;
     height: 100%;
+    padding-top: 5px;
 
     img {
       width: 60px;
@@ -171,9 +193,14 @@ function submitLogin() {
 }
 
 .my-info .unlogin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
   cursor: pointer;
-  font-size: 22px;
-  line-height: 88px;
+  svg {
+    width: 40px;
+  }
 }
 
 .dialog-form {

@@ -60,51 +60,51 @@
 </template>
 
 <script setup>
-import {Search} from '@element-plus/icons-vue';
-import {useRouter} from 'vue-router';
-import {useBlogStore} from '@/store';
-import {useAxios} from '@/hooks/useAxios';
-import Dialog from '@/components/common/Dialog.vue';
-import {ref, provide, computed} from 'vue';
+import {Search} from '@element-plus/icons-vue'
+import {useRouter} from 'vue-router'
+import {useBlogStore} from '@/store'
+import {useAxios} from '@/hooks/useAxios'
+import Dialog from '@/components/common/Dialog.vue'
+import {ref, provide, computed} from 'vue'
 
-const store = useBlogStore();
-const router = useRouter();
+const store = useBlogStore()
+const router = useRouter()
 
 function readOrEdit(id, path) {
-  router.push({path, query: {id}}); //跳转到id对应的文章详情页
+  router.push({path, query: {id}}) //跳转到id对应的文章详情页
 }
 
 // 删除动态的弹框
-let dialogVisible = ref(false);
-let deleteDynamicId = ref(''); // 保存二次确认要删除话题的ID
-provide('dialogVisible', dialogVisible);
+let dialogVisible = ref(false)
+let deleteDynamicId = ref('') // 保存二次确认要删除话题的ID
+provide('dialogVisible', dialogVisible)
 function openDialogAndGetDynamicId(dynamicId) {
-  deleteDynamicId.value = dynamicId;
-  dialogVisible.value = true;
+  deleteDynamicId.value = dynamicId
+  dialogVisible.value = true
 }
 function deleteDynamic() {
   useAxios(
     () => {
-      dialogVisible.value = false;
-      store.getDynamic();
+      dialogVisible.value = false
+      store.getDynamic()
     },
     'post',
     '/deleteArticle',
     {id: deleteDynamicId.value}
-  );
+  )
 }
 
-let searchText = ref('');
+let searchText = ref('')
 // 动态搜索显示的文章
 let showArticleList = computed(() => {
   const text = searchText.value.trim()
   if (text) {
     return store.dynamicData.filter(
       item => item.title.includes(text) || item.describe.includes(text) || item.author.name.includes(text)
-    );
+    )
   }
-  return store.myDynamic.concat(store.unMyDynamic);
-});
+  return store.myDynamic.concat(store.unMyDynamic)
+})
 </script>
 
 <style scoped lang="scss">
@@ -142,7 +142,6 @@ let showArticleList = computed(() => {
         color: #6bc30d;
         font-size: 16px;
         line-height: 24px;
-        width: 193px;
       }
     }
     main {
