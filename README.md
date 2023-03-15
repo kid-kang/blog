@@ -6,11 +6,32 @@
 
 该项目前端使用 Vue3 + Pinia 重构我了我之前的项目，优化了性能，优化了界面，使其成为公共的技术分享及讨论平台。
 
-后端源码请看 [blog-api](https://github.com/kid-kang/blog-api)
+早就有过重构本站的念头但迟迟没有动手，这次终于撸起袖子，但是遇到的种种困难让我夜不能寐。我想，就算是通宵达旦我也要尽快的完成它！
 
 该平台诞生于 2021.9，重构于 2022.11
 
-早就有过重构本站的念头但迟迟没有动手，这次终于撸起袖子，但是遇到的种种困难让我夜不能寐。我想，就算是通宵达旦我也要尽快的完成它！
+## 启动项目概要
+
+先启动后端服务再启动前端，后端源码请看 [blog-api](https://github.com/kid-kang/blog-api)
+
+PS：后端环境需要有下载 MongonDB 哦
+
+```sh
+// 安装依赖
+npm install
+```
+
+```sh
+// 启动前端服务
+npm run dev
+```
+
+```sh
+// 打包
+npm run build
+```
+
+
 
 ## 优化详情
 
@@ -101,21 +122,3 @@ export function useRedirect(isAdminPages) {
 
   - 我的项目在部署 https 访问的时候报了该错误。于是我看了一下请求后台就接口地址。发现是(IP)https://ip/api，不是域名(https://www.xxx.com/api)。所以会报这个错。于是去前端把axios的请求路径换成域名形式的就ok。然后打包，重新上线！
   - [解释](https://blog.csdn.net/xzwwjl1314/article/details/105006707)
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
