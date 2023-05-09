@@ -91,5 +91,5 @@ export function useRedirect(isAdminPages) {
   - 然后发现 https 放在本地运行无效 要放在线上环境
   - 遇见`NET::ERR_CERT_COMMON_NAME_INVALID`这个报错的原因是网站 ssl 证书颁发的域名与网站实际打开的域名（或者请求的 URL）不匹配
 
-  - 我的项目在部署 https 访问的时候报了该错误。于是我看了一下请求后台的接口地址。发现是(IP)https://ip/api，不是域名(https://www.xxx.com/api)。所以会报这个错。于是去前端把axios的请求路径换成域名形式的就ok。然后打包，重新上线！
+  - 我的项目在部署 https 访问的时候报了该错误。于是我看了一下请求后台的接口地址。发现是IP请求：`https://ip/api`，不是域名`https://www.xxx.com/api`，所以会报这个错。于是去前端把axios的请求路径换成域名形式的就ok。然后打包，重新上线！
   - [解释](https://blog.csdn.net/xzwwjl1314/article/details/105006707)
